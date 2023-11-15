@@ -1,0 +1,66 @@
+{
+  "kategoriler": [
+    {
+      "id": 1,
+      "ad": "Bilgisayar"
+    },
+    {
+      "id": 2,
+      "ad": "Telefon"
+    },
+    {
+      "id": 3,
+      "ad": "Kulaklık"
+    },
+    {
+      "id": 4,
+      "ad": "Monitör"
+    },
+    {
+      "id": 5,
+      "ad": "Klavye"
+    },
+    {
+      "id": 6,
+      "ad": "Oyun Konsolları"
+    }
+  ],
+  "bloglar": [
+    {
+      "id": 101,
+      "kategoriId": 2,
+      "urunAdi": "Akıllı Telefon X",
+      "aciklama": "Yüksek performanslı akıllı telefon. En yeni teknoloji trendlerini içerir.",
+      "resim": "https://picsum.photos/800/600",
+      "fiyat": 1499.99,
+      "stokDurumu": true,
+      "yeniUrun": true,
+      "indirimOrani": 10,
+      "tag": ["akıllı telefon", "teknoloji"]
+    },
+    {
+      "id": 102,
+      "kategoriId": 1,
+      "urunAdi": "UltraBook Pro",
+      "aciklama": "Hafif ve şık tasarıma sahip güçlü bir dizüstü bilgisayar.",
+      "resim": "https://picsum.photos/810/600",
+      "fiyat": 1999.99,
+      "stokDurumu": true,
+      "yeniUrun": false,
+      "indirimOrani": null,
+      "tag": ["ultrabook", "dizüstü bilgisayar", "teknoloji"]
+    },
+    {
+      "id": 103,
+      "kategoriId": 3,
+      "urunAdi": "Kablosuz Kulaklık Pro",
+      "aciklama": "Yüksek kaliteli ses deneyimi sunan kablosuz kulaklık.",
+      "resim": "https://picsum.photos/801/600",
+      "fiyat": 149.99,
+      "stokDurumu": true,
+      "yeniUrun": true,
+      "indirimOrani": 15,
+      "tag": ["kablosuz kulaklık", "müzik", "teknoloji"]
+    }
+  ]
+}

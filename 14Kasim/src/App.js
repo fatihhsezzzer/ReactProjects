@@ -80,7 +80,7 @@ export default class App extends Component {
             
             <Products
               sepeteEkle={this.sepeteEkle}
-              urunler={this.state.products}
+              products={this.state.products}
               currentCategory={this.state.currentCategory}
             />
           </Col>
