@@ -1,51 +1,45 @@
-import React from "react";
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-} from "reactstrap";
-import Cart from "./Cart";
-import Logo from './logo.png';
+import React, { Component } from "react";
+import { ListGroup, ListGroupItem } from "reactstrap";
 
-export default class Header extends React.Component {
-  constructor(props) {
-    super(props);
+export default class Categories extends Component {
+  // Bileşenin durumu, kategorileri içerir
+  state = {
+    categories: [],
+  };
 
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false,
-    };
+  // Bileşenin monte edildiği an, kategorileri almak için API'ye istek gönderilir
+  componentDidMount() {
+    this.getCategories();
   }
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
-  }
+
+  // Kategorileri API'den almak için yardımcı fonksiyon
+  getCategories = () => {
+    fetch("http://localhost:3000/categories")
+      .then((response) => response.json())
+      .then((data) => this.setState({ categories: data }));
+  };
+
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">  <img src={Logo} alt="Logo" style={{ width: '150px' }} /></NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/components/">Components</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/components/">Components</NavLink>
-              </NavItem>
-              <Cart
-                cart={this.props.cart}
-                removeToCart={this.props.removeToCart}
-              />
-            </Nav>
-          </Collapse>
-        </Navbar>
+        {/* Kategorileri listelemek için bir grup oluşturulur */}
+        <ListGroup>
+          {this.state.categories.map((category) => (
+            <ListGroupItem
+              // Etkin kategoriye uygun renk vermek için aktif durum kontrol edilir
+              active={
+                category.categoryName === this.props.currentCategory
+                  ? true
+                  : false
+              }
+              // Kategoriye tıklandığında belirli bir kategoriye geçmek için fonksiyon çağrılır
+              onClick={() => this.props.changeCategory(category)}
+              key={category.id}
+            >
+              {category.categoryName}
+            </ListGroupItem>
+          ))}
+        </ListGroup>
       </div>
     );
   }
