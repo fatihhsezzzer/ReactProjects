@@ -27,40 +27,74 @@
   ],
   "bloglar": [
     {
-      "id": 101,
+      "id": 112,
       "kategoriId": 2,
       "urunAdi": "Akıllı Telefon X",
       "aciklama": "Yüksek performanslı akıllı telefon. En yeni teknoloji trendlerini içerir.",
       "resim": "https://picsum.photos/800/600",
       "fiyat": 1499.99,
       "stokDurumu": true,
+      "favoriSayisi": 11,
       "yeniUrun": true,
       "indirimOrani": 10,
-      "tag": ["akıllı telefon", "teknoloji"]
+      "tag": ["akıllı telefon", "teknoloji"],
+      "date": "2023-01-02"
     },
     {
-      "id": 102,
+      "id": 122,
       "kategoriId": 1,
       "urunAdi": "UltraBook Pro",
       "aciklama": "Hafif ve şık tasarıma sahip güçlü bir dizüstü bilgisayar.",
       "resim": "https://picsum.photos/810/600",
+      "favoriSayisi": 13,
       "fiyat": 1999.99,
       "stokDurumu": true,
       "yeniUrun": false,
       "indirimOrani": null,
-      "tag": ["ultrabook", "dizüstü bilgisayar", "teknoloji"]
+      "tag": ["ultrabook", "dizüstü bilgisayar", "teknoloji"],
+      "date": "2023-01-03"
     },
     {
-      "id": 103,
+      "id": 123,
       "kategoriId": 3,
       "urunAdi": "Kablosuz Kulaklık Pro",
       "aciklama": "Yüksek kaliteli ses deneyimi sunan kablosuz kulaklık.",
       "resim": "https://picsum.photos/801/600",
+      "favoriSayisi": 3,
       "fiyat": 149.99,
       "stokDurumu": true,
       "yeniUrun": true,
       "indirimOrani": 15,
-      "tag": ["kablosuz kulaklık", "müzik", "teknoloji"]
+      "tag": ["kablosuz kulaklık", "müzik", "teknoloji"],
+      "date": "2023-01-04"
+    },
+    {
+      "id": 124,
+      "kategoriId": 1,
+      "urunAdi": "Gaming Laptop XYZ",
+      "aciklama": "Yüksek performanslı oyun bilgisayarı. En yeni oyunlara göz atın.",
+      "resim": "https://picsum.photos/802/600",
+      "fiyat": 2499.99,
+      "stokDurumu": true,
+      "favoriSayisi": 1,
+      "yeniUrun": true,
+      "indirimOrani": 12,
+      "tag": ["oyun bilgisayarı", "gaming", "teknoloji"],
+      "date": "2023-01-05"
+    },
+    {
+      "id": 125,
+      "kategoriId": 2,
+      "urunAdi": "Tablet Pro",
+      "aciklama": "Hafif ve taşınabilir tablet bilgisayar. İş ve eğlence için mükemmel.",
+      "resim": "https://picsum.photos/803/600",
+      "fiyat": 799.99,
+      "favoriSayisi": 23,
+      "stokDurumu": true,
+      "yeniUrun": false,
+      "indirimOrani": null,
+      "tag": ["tablet", "teknoloji"],
+      "date": "2023-01-06"
     }
   ]
 }
