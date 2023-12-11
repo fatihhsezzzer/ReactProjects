@@ -1,25 +1,25 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import Home from './Components/HomePage';
-import CryptoList from './Components/CryptoList';
-import CryptoDetail from './Components/CryptoDetail';
-import News from './NewsList';
+import Register from './Components/Register';
+import { UserProvider } from './UserContext';
+import News from './Components/NewsList';
 import Portfolio from './Components/Portfolio';
 import Login from './Components/Login';
-import Footer from './Footer';
+import Footer from './Components/Footer';
+import Header from './Components/Header';
 import CryptoMarketOverview from './Components/CryptoMarketOverview';
-function App() {
 
+function App() {
   const [cryptos, setCryptos] = useState([]);
+
 
   useEffect(() => {
     axios.get('http://localhost:3001/api/crypto')
       .then(response => {
-        // İlk 20 öğeyi al
-        const firstTwenty = response.data.data.slice(0, 20);
-        setCryptos(firstTwenty);
+        setCryptos(response.data.data.slice(0, 20));
       })
       .catch(error => {
         console.error('Veri çekme hatası:', error);
@@ -27,12 +27,37 @@ function App() {
   }, []);
 
 
-  return (
-    <div className="App">
-      <Home></Home>
-      {/* <CryptoMarketOverview cryptos={cryptos} /> */}
+  const [registeredUsers, setRegisteredUsers] = useState([
+    { name: "Fatih", email: "fatih@sezer", password: "1234", wallet: 10000, coins: {}, toplamDeger: 0 },
+    { name: "deneme", email: "user2@example.com", password: "password2", wallet: 100, coins: {}, toplamDeger: 0 }
+    // Diğer kayıtlı kullanıcılar...
+  ]);
 
-    </div>
+  const addUser = (newUser) => {
+    setRegisteredUsers([...registeredUsers, newUser]);
+  };
+
+
+
+
+
+  return (
+    <UserProvider>
+      <Router>
+        <div className="App">
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/wallet" element={<Portfolio cryptos={cryptos} />} />
+            <Route path="/market" element={<CryptoMarketOverview registeredUsers={registeredUsers} />} />ğ
+            <Route path="/login" element={<Login registeredUsers={registeredUsers} />} />
+            <Route path="/register" element={<Register setRegisteredUsers={setRegisteredUsers} />} />
+          </Routes>
+          <Footer />
+        </div>
+      </Router>
+    </UserProvider>
   );
 }
 
