@@ -27,6 +27,10 @@
 .product-item {
   margin-bottom: 20px; /* Altta boşluk */
 }
+/* Örnek CSS dosyası: styles.css */
+.post-item {
+  cursor: pointer;
+}
 
 /* Ekranın kenarlarındaki boşluklar */
 .products-container {

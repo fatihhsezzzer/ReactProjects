@@ -7,7 +7,8 @@ import { useUser } from '../../UserContext';
 
 
 
-export default function Login(setRegisteredUsers, registeredUsers) {
+export default function Login({ setRegisteredUsers, registeredUsers }) {
+    const { currentUser } = useUser();
     const [name, setName] = useState('');
 
     const [email, setEmail] = useState('');
@@ -42,7 +43,8 @@ export default function Login(setRegisteredUsers, registeredUsers) {
             password,
 
         };
-        setRegisteredUsers(users => [...users, newUser]);
+        console.log(registeredUsers)
+        setRegisteredUsers([...registeredUsers, newUser]);
 
         alert("Kayıt Başarılı...")
         navigate('/login');
@@ -66,10 +68,10 @@ export default function Login(setRegisteredUsers, registeredUsers) {
                                 <div className="login-register-style login-register-pr">
                                     <form action="#" method="post">
                                         <div className="login-register-input">
-                                            <input type="text" name="user-name" placeholder="Username or email address" />
+                                            <input type="text" name="name" placeholder="E-mail address" required onChange={(e) => setEmail(e.target.value)} />
                                         </div>
                                         <div className="login-register-input">
-                                            <input type="password" name="user-password" placeholder="Password" />
+                                            <input type="password" name="user-password" placeholder="Password" required onChange={(e) => setPassword(e.target.value)} />
                                             <div className="forgot">
                                                 <Link href="#">Forgot?</Link>
                                             </div>
@@ -94,13 +96,14 @@ export default function Login(setRegisteredUsers, registeredUsers) {
                                 <div className="login-register-style">
                                     <form onSubmit={handleRegister} action="#" method="post">
                                         <div className="login-register-input">
-                                            <input type="text" name="user-name" placeholder="Username" />
+                                            <input type="text" name="name" placeholder="Name" required
+                                                onChange={(e) => setName(e.target.value)} />
                                         </div>
                                         <div className="login-register-input">
-                                            <input type="text" name="user-name" placeholder="E-mail address" />
+                                            <input type="text" name="user-name" placeholder="E-mail address" required onChange={(e) => setEmail(e.target.value)} />
                                         </div>
                                         <div className="login-register-input">
-                                            <input type="password" name="user-password" placeholder="Password" />
+                                            <input type="password" name="user-password" placeholder="Password" required onChange={(e) => setPassword(e.target.value)} />
                                         </div>
                                         <div className="login-register-paragraph">
                                             <p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <Link href="#">privacy policy.</Link></p>

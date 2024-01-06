@@ -1,6 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { useUser } from '../UserContext';
+
 export default function Header() {
+    const { currentUser } = useUser();
+    const { logout } = useUser();
     return (
         <div>
             <header className="header-wrapper">
@@ -16,7 +20,15 @@ export default function Header() {
                                 <div className="header-info">
                                     <Link href="tel://+00123456789"><i className="fa fa-phone" /> +00 123 456 789</Link>
                                     <Link href="mailto://demo@example.com"><i className="fa fa-envelope" /> demo@example.com</Link>
-                                    <Link to="/login"><i className="fa fa-user" /> Account</Link>
+                                    <Link to="/login">
+                                        <i className="fa fa-user" />
+                                        {currentUser && currentUser.name ? currentUser.name : 'Account'}
+                                    </Link>
+                                    <div onClick={logout} style={{ cursor: 'pointer' }}>
+                                        <i className="fa-solid fa-power-off ms-3"></i>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -92,6 +104,7 @@ export default function Header() {
                                         <li><Link to="/wishList">Wishlist</Link></li>
                                         <li><Link to="/contact">Contact</Link></li>
                                     </ul>
+
                                 </div>
                             </div>
                             <div className="col-8 col-sm-6 col-lg-2">

@@ -2,15 +2,16 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
-import Blog from './Components/Blog';
+import Blog from './Components/Pages/Blog';
 import CartPage from './Components/Pages/CartPage';
-import WishList from './Components/WishList';
+import WishList from './Components/Pages/WishList';
 import Contact from './Components/Contact';
 import Login from './Components/Pages/Login';
 import Home from './Components/Pages/Home';
 import About from './Components/Pages/About';
 import ShopPage from './Components/Pages/ShopPage';
 import ProductDetail from './Components/Pages/ProductDetail';
+import BlogDetail from './Components/Pages/BlogDetail';
 
 
 import { UserProvider } from './UserContext';
@@ -43,6 +44,8 @@ function App() {
             <Route path="/login" element={<Login setRegisteredUsers={setRegisteredUsers} registeredUsers={registeredUsers} />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/product-detail/:productId" element={<ProductDetail />} />
+            <Route path="/blog-detail/:blogId" element={<BlogDetail />} />
+
 
 
           </Routes>
