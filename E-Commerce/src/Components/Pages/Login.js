@@ -3,55 +3,108 @@ import { Link } from 'react-router-dom';
 import AccountSlider from '../Sliders/AccountSlider'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '../../UserContext';
-
+import { useUser } from '../../Contexts/UserContext';
 
 
 export default function Login({ setRegisteredUsers, registeredUsers }) {
-    const { currentUser } = useUser();
-    const [name, setName] = useState('');
+    const { currentUser, setCurrentUser, fetchFavorites } = useUser();
+    const [Loginemail, setLoginemail] = useState('');
+    const [Loginpassword, setLoginpassword] = useState('');
+    const [Name, setName] = useState('');
+    const [Surname, setSurname] = useState('');
 
     const [email, setEmail] = useState('');
 
     const [password, setPassword] = useState('');
 
-    const { login } = useUser();
+
 
     const navigate = useNavigate();
 
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
 
-        const isLoginSuccessful = login(email, password, registeredUsers);
+        const loginInfo = {
+            email: Loginemail,
+            password: Loginpassword
+        };
 
-        if (isLoginSuccessful) {
+        try {
+            const response = await fetch('https://localhost:7237/LoginUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(loginInfo)
+            });
 
-            navigate('/');
-        } else {
+            const data = await response.json();
 
-            setEmail('');
-            setPassword('');
-            alert('Giriş bilgileri hatalı. Lütfen tekrar deneyin.');
+
+            if (data.isSuccess || data.authenticateResult) {
+                localStorage.setItem('authToken', data.authToken);
+                localStorage.setItem('name', data.name);
+                localStorage.setItem('surname', data.surname);
+
+                // UserContext'den currentUser'ı güncellemek için fonksiyonu kullan
+
+                setCurrentUser({
+                    name: data.name,
+                    surname: data.surname,
+                    id: data.id,
+                    Token: data.authToken
+                });
+                console.log(currentUser)
+
+                // Kullanıcıyı ana sayfaya yönlendir
+                navigate('/');
+            } else {
+                setEmail('');
+                setPassword('');
+                alert('Giriş bilgileri hatalı. Lütfen tekrar deneyin.');
+            }
+        } catch (error) {
+            console.error('Giriş sırasında bir hata oluştu:', error);
         }
     };
 
+
+
     const handleRegister = (event) => {
+
         event.preventDefault();
+
         const newUser = {
-            name,
-            email,
-            password,
-
+            Name: Name,
+            Surname: Surname,
+            email: email,
+            password: password,
         };
-        console.log(registeredUsers)
-        setRegisteredUsers([...registeredUsers, newUser]);
 
-        alert("Kayıt Başarılı...")
-        navigate('/login');
+        fetch('https://localhost:7237/RegisterUser', {
+            method: 'POST',
+            mode: "cors",
+            headers: {
+                'Content-Type': 'application/json',
+
+                // Gerekirse diğer header'lar
+            },
+            body: JSON.stringify(newUser)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("Kayıt Başarılı...");
+
+                } else {
+                    throw new Error('Kayıt işlemi başarısız.');
+                }
+            })
+            .catch(error => {
+                alert(error.message);
+            });
     };
-    const deneme = () => {
-        console.log("dasd")
-    }
+
+
     return (
 
         <div>
@@ -68,10 +121,10 @@ export default function Login({ setRegisteredUsers, registeredUsers }) {
                                 <div className="login-register-style login-register-pr">
                                     <form action="#" method="post">
                                         <div className="login-register-input">
-                                            <input type="text" name="name" placeholder="E-mail address" required onChange={(e) => setEmail(e.target.value)} />
+                                            <input type="text" name="name" placeholder="E-mail address" value={Loginemail} required onChange={(e) => setLoginemail(e.target.value)} />
                                         </div>
                                         <div className="login-register-input">
-                                            <input type="password" name="user-password" placeholder="Password" required onChange={(e) => setPassword(e.target.value)} />
+                                            <input type="password" name="user-password" placeholder="Password" value={Loginpassword} required onChange={(e) => setLoginpassword(e.target.value)} />
                                             <div className="forgot">
                                                 <Link href="#">Forgot?</Link>
                                             </div>
@@ -97,13 +150,17 @@ export default function Login({ setRegisteredUsers, registeredUsers }) {
                                     <form onSubmit={handleRegister} action="#" method="post">
                                         <div className="login-register-input">
                                             <input type="text" name="name" placeholder="Name" required
-                                                onChange={(e) => setName(e.target.value)} />
+                                                value={Name} onChange={(e) => setName(e.target.value)} />
                                         </div>
                                         <div className="login-register-input">
-                                            <input type="text" name="user-name" placeholder="E-mail address" required onChange={(e) => setEmail(e.target.value)} />
+                                            <input type="text" name="surname" placeholder="Surname" required
+                                                value={Surname} onChange={(e) => setSurname(e.target.value)} />
                                         </div>
                                         <div className="login-register-input">
-                                            <input type="password" name="user-password" placeholder="Password" required onChange={(e) => setPassword(e.target.value)} />
+                                            <input type="text" name="user-name" placeholder="E-mail address" value={email} required onChange={(e) => setEmail(e.target.value)} />
+                                        </div>
+                                        <div className="login-register-input">
+                                            <input type="password" name="user-password" placeholder="Password" value={password} required onChange={(e) => setPassword(e.target.value)} />
                                         </div>
                                         <div className="login-register-paragraph">
                                             <p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <Link href="#">privacy policy.</Link></p>

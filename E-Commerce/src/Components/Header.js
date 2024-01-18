@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { useUser } from '../UserContext';
+import { useUser } from '../Contexts/UserContext';
 
 export default function Header() {
     const { currentUser } = useUser();
@@ -22,8 +22,9 @@ export default function Header() {
                                     <Link href="mailto://demo@example.com"><i className="fa fa-envelope" /> demo@example.com</Link>
                                     <Link to="/login">
                                         <i className="fa fa-user" />
-                                        {currentUser && currentUser.name ? currentUser.name : 'Account'}
+                                        {currentUser && currentUser.name ? `${currentUser.name} ${currentUser.surname}` : 'Account'}
                                     </Link>
+
                                     <div onClick={logout} style={{ cursor: 'pointer' }}>
                                         <i className="fa-solid fa-power-off ms-3"></i>
                                     </div>
@@ -63,9 +64,9 @@ export default function Header() {
                                     <div className="header-align-right">
                                         <div className="header-action-area">
                                             <div className="header-action-wishlist">
-                                                <button className="btn-wishlist" onClick="window.location.href='shop-wishlist.html'">
+                                                <Link to="/wishList" className="btn-wishlist" >
                                                     <i className="pe-7s-like" />
-                                                </button>
+                                                </Link>
                                             </div>
                                             <div className="header-action-cart">
                                                 <Link to="/Cart" className="btn-cart cart-icon">

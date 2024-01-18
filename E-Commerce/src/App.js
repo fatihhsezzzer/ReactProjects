@@ -12,46 +12,48 @@ import About from './Components/Pages/About';
 import ShopPage from './Components/Pages/ShopPage';
 import ProductDetail from './Components/Pages/ProductDetail';
 import BlogDetail from './Components/Pages/BlogDetail';
+import CategoryDetail from './Components/Pages/CategoryDetail';
+
+import { CartProvider } from './Contexts/CartContext';
+import { UserProvider } from './Contexts/UserContext';
+import { useEffect, useState } from 'react';
 
 
-import { UserProvider } from './UserContext';
-import { useState } from 'react';
+
 
 function App() {
-  const [registeredUsers, setRegisteredUsers] = useState([
-    { name: "Fatih", email: "fatih@sezer", password: "1234" },
-    { name: "deneme", email: "user2@example.com", password: "password2" }
 
-  ]);
 
-  const addUser = (newUser) => {
-    setRegisteredUsers([...registeredUsers, newUser]);
-  };
+
 
 
   return (
+
     <UserProvider>
-      <Router>
-        <div className="App">
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/shop" element={<ShopPage />} />
-            <Route path="/wishList" element={<WishList />} />
-            <Route path="/login" element={<Login setRegisteredUsers={setRegisteredUsers} registeredUsers={registeredUsers} />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/product-detail/:productId" element={<ProductDetail />} />
-            <Route path="/blog-detail/:blogId" element={<BlogDetail />} />
+      <CartProvider>
+        <Router>
+          <div className="App">
+            <Header />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/shop" element={<ShopPage />} />
+              <Route path="/wishList" element={<WishList />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/product-detail/:productId" element={<ProductDetail />} />
+              <Route path="/category-detail/:categoryId" element={<CategoryDetail />} />
+              <Route path="/blog-detail/:blogId" element={<BlogDetail />} />
 
 
 
-          </Routes>
-          <Footer />
-        </div>
-      </Router>
+            </Routes>
+            <Footer />
+          </div>
+        </Router>
+      </CartProvider>
     </UserProvider>
 
   );

@@ -6,7 +6,6 @@ import ShopPage from './ShopPage'
 export default function Home() {
     return (
         <div>
-            <Sldier></Sldier>
             <Category></Category>
             <ShopPage></ShopPage>
         </div>

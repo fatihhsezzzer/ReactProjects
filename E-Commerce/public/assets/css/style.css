@@ -23,6 +23,119 @@
   Typography CSS
 -----------------------------------------------------------------------
 */
+
+.home-slider-area {
+  position: relative;
+  overflow: hidden;
+}
+
+.swiper-container {
+  width: 100%;
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-slider-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thumb-one,
+.shape-top,
+.shape-bottom {
+  background-size: cover;
+  background-position: center;
+}
+
+.thumb-one {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.slider-content-area {
+  position: relative;
+  z-index: 2;
+}
+
+.container {
+  padding: 20px;
+}
+
+.content {
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
+.inner-content h2 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.inner-content p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+.btn-theme {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.thumb-two,
+.thumb-three,
+.thumb-four {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+}
+
+.thumb-two {
+  bottom: 10%;
+  right: 15%;
+}
+
+.thumb-three {
+  top: 15%;
+  left: 10%;
+}
+
+.thumb-four {
+  bottom: 5%;
+  left: 20%;
+}
+
+.shape-top,
+.shape-bottom {
+  position: absolute;
+  z-index: 1;
+}
+
+.shape-top {
+  top: 0;
+  left: 0;
+}
+
+.shape-bottom {
+  bottom: 0;
+  right: 0;
+}
+
 /* Ürünler arasındaki boşluk */
 .product-item {
   margin-bottom: 20px; /* Altta boşluk */
@@ -44,6 +157,81 @@
     flex: 0 0 25%;
     max-width: 25%;
   }
+}
+.product-item {
+  position: relative; /* Kalp ikonunun pozisyonlamasını sağlamak için */
+}
+
+.heart {
+  position: absolute; /* Kalp ikonunu mutlak pozisyonla yerleştir */
+  top: 10px; /* Üstten 10px boşluk */
+  right: 10px; /* Sağdan 10px boşluk */
+  font-size: 30px; /* İkon boyutunu artır */
+  cursor: pointer; /* İkon üzerine gelindiğinde imleci değiştir */
+  transition: transform 0.3s ease; /* Animasyon için geçiş süresi */
+}
+
+.fa-heart,
+.fa-heart-o {
+  color: red; /* Dolu ve boş kalp ikonlarının rengi */
+}
+
+.heart:hover {
+  transform: scale(1.1); /* İkonun boyutunu hover sırasında büyüt */
+}
+.category-area {
+  padding: 20px 0;
+}
+
+.category-item {
+  margin-bottom: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.category-item:hover {
+  transform: scale(1.05);
+}
+
+.thumb {
+  height: 200px;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.content {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.contact-info {
+  margin-bottom: 10px;
+}
+
+.title {
+  margin: 0;
+  color: #333;
+}
+
+.price {
+  margin: 0;
+  color: #666;
+}
+
+.btn-link {
+  text-decoration: none;
+  color: #007bff;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 body {

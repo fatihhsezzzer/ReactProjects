@@ -1,57 +1,52 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Category() {
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        fetch('https://localhost:7237/api/category')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Veri yüklenirken bir hata oluştu.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                setCategories(data);
+                setLoading(false);
+            })
+            .catch(error => {
+                setError(error.message);
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) return <div>Yükleniyor...</div>;
+    if (error) return <div>Hata: {error}</div>;
+
     return (
         <div>
             <section className="category-area product-category1-area" data-aos="fade-up" data-aos-duration={1000}>
                 <div className="container">
                     <div className="row category-items1">
-                        <div className="col-sm-6 col-md-4">
-                            <div className="category-item">
-                                <div className="thumb thumb-style1">
-                                    <img src="assets/img/category/1.png" alt="Image" />
+                        {categories.map((category, index) => (
+                            <Link to={`/category-detail/${category.id}`} key={category.id} className="col-sm-6 col-md-4">
+                                <div className={`thumb thumb-style${index + 1}`} style={{ backgroundImage: `url(${category.image})` }}>
                                     <div className="content">
                                         <div className="contact-info">
-                                            <h2 className="title">Baby Dress</h2>
-                                            <h4 className="price">$32.00</h4>
+                                            <h2 className="title">{category.name}</h2>
+                                            <h4 className="price">{category.price}</h4>
                                         </div>
-                                        <a className="btn-link" href="shop.html">Shop Now</a>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="col-sm-6 col-md-4">
-                            <div className="category-item mt-xs-25">
-                                <div className="thumb thumb-style2">
-                                    <img src="assets/img/category/2.png" alt="Image" />
-                                    <div className="content">
-                                        <div className="contact-info">
-                                            <h2 className="title">Baby Toys</h2>
-                                            <h4 className="price">$25.00</h4>
-                                        </div>
-                                        <a className="btn-link" href="shop.html">Shop Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-sm-6 col-md-4">
-                            <div className="category-item mt-sm-25">
-                                <div className="thumb thumb-style3">
-                                    <img src="assets/img/category/3.png" alt="Image" />
-                                    <div className="content">
-                                        <div className="contact-info">
-                                            <h2 className="title">Teddy Bear</h2>
-                                            <h4 className="price">$18.00</h4>
-                                        </div>
-                                        <a className="btn-link" href="shop.html">Shop Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </section>
-
         </div>
-    )
+    );
 }

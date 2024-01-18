@@ -1,8 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { useUser } from '../../Contexts/UserContext';
+
+
+import { CartContext } from '../../Contexts/CartContext';
+
 
 export default function WishList() {
-    const [products, setProducts] = useState([]);
+
+    const { addToCart, addToFav } = useContext(CartContext);
+    const { fav } = useUser();
+
 
 
 
@@ -33,9 +41,9 @@ export default function WishList() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {products.map(product => (
+                                            {fav.map(product => (
                                                 <tr key={product.id}>
-                                                    <td className="product-remove"><Link to="#">×</Link></td>
+                                                    <td className="product-remove"><Link onClick={() => addToFav(product)}>×</Link></td>
                                                     <td className="product-thumbnail">
                                                         <Link to="shop-single-product.html"><img src={product.image} alt="Image" /></Link>
                                                     </td>
@@ -46,7 +54,7 @@ export default function WishList() {
                                                     <td className="stock-status">
                                                         <span><i className="fa fa-check" /> In Stock</span>
                                                     </td>
-                                                    <td className="wishlist-cart"><Link to="shop-cart.html">Add to Cart</Link></td>
+                                                    <td className="wishlist-cart"><Link onClick={() => addToCart(product)}>Add to Cart</Link></td>
                                                 </tr>
                                             ))}
                                         </tbody>

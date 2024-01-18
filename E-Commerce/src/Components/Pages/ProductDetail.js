@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { CartContext } from '../../Contexts/CartContext';
 import { useParams } from 'react-router-dom';
 
 function ProductDetail() {
@@ -7,8 +8,10 @@ function ProductDetail() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const { addToCart } = useContext(CartContext);
+
     useEffect(() => {
-        fetch(`http://localhost:3000/products/${productId}`)
+        fetch(`https://localhost:7237/api/Product/${productId}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Ürün yüklenirken bir hata oluştu.');
@@ -34,7 +37,7 @@ function ProductDetail() {
             <div className="single-product-info">
                 <h4 className="title">{product.name}</h4>
                 <div className="prices">
-                    <span className="price">${product.price}</span>
+                    <span className="price">&#8378;{product.price}</span>
                 </div>
                 <div className="product-rating">
                     <div className="rating">
